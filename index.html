@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>PADECO ADMIN | Dashboard</title>
+  <title>PADECO ADMIN | Dynamic Dashboard</title>
   <!-- Google Fonts + simple reset -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <!-- Font Awesome 6 (free icons) -->
@@ -40,7 +40,7 @@
       transition: all 0.2s ease;
     }
 
-    /* ========= SIDEBAR (inspired by design from image) ========= */
+    /* ========= SIDEBAR (fully functional navigation) ========= */
     .sidebar {
       width: 280px;
       background: #0f2b3d;
@@ -133,7 +133,7 @@
       color: #ffb7bc;
     }
 
-    /* ========= MAIN CONTENT ========= */
+    /* ========= MAIN CONTENT (dynamic panel) ========= */
     .main-content {
       flex: 1;
       background: #f8fafc;
@@ -182,65 +182,25 @@
       font-size: 1.1rem;
     }
 
-    /* dashboard stats cards (like typical admin) */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 1.5rem;
-      padding: 2rem 2rem 1rem 2rem;
+    /* dynamic panel container */
+    .dynamic-view {
+      padding: 2rem;
+      animation: fadeIn 0.25s ease;
     }
 
-    .stat-card {
-      background: white;
-      padding: 1.3rem 1.5rem;
-      border-radius: 1.5rem;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-      border: 1px solid #eef2f8;
-      transition: transform 0.1s ease;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px);}
+      to { opacity: 1; transform: translateY(0);}
     }
 
-    .stat-info h3 {
-      font-size: 1.9rem;
-      font-weight: 700;
-      color: #0f2b3d;
-    }
-
-    .stat-info p {
-      color: #5c6f87;
-      font-weight: 500;
-      font-size: 0.85rem;
-      letter-spacing: 0.3px;
-    }
-
-    .stat-icon {
-      background: #eef6fc;
-      width: 52px;
-      height: 52px;
-      border-radius: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8rem;
-      color: #2c7da0;
-    }
-
-    /* recent activity / content preview to mimic pages & posts */
-    .content-sections {
-      padding: 1rem 2rem 2rem 2rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-    }
-
+    /* cards, tables, lists for each section */
     .card-panel {
       background: white;
       border-radius: 1.5rem;
       border: 1px solid #eef2f8;
       overflow: hidden;
       box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+      margin-bottom: 1.5rem;
     }
 
     .panel-header {
@@ -256,10 +216,6 @@
       font-size: 1.1rem;
       font-weight: 600;
       color: #1f3b4c;
-    }
-
-    .panel-header i {
-      color: #7e8ea8;
     }
 
     .list-item {
@@ -295,23 +251,57 @@
       color: #2c6e2c;
     }
 
-    .badge-draft {
-      background: #fef2e0;
-      color: #b85b1a;
-    }
-
-    .view-link {
-      color: #2c7da0;
-      font-size: 0.8rem;
+    .btn-sm {
+      background: #eef2ff;
+      border: none;
+      padding: 0.3rem 0.8rem;
+      border-radius: 30px;
+      font-size: 0.7rem;
       font-weight: 500;
-      cursor: default;
+      cursor: pointer;
+      color: #1e4762;
+      transition: all 0.1s;
     }
 
-    hr {
-      margin: 0;
+    .btn-sm:hover {
+      background: #d9e2ef;
     }
 
-    /* footer / subtle */
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .stat-card {
+      background: white;
+      padding: 1.3rem 1.5rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      border: 1px solid #eef2f8;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .stat-info h3 {
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: #0f2b3d;
+    }
+
+    .stat-icon {
+      background: #eef6fc;
+      width: 52px;
+      height: 52px;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: #2c7da0;
+    }
+
     .copyright-footer {
       padding: 1rem 2rem 1.5rem 2rem;
       text-align: center;
@@ -321,19 +311,16 @@
       margin-top: 0.5rem;
     }
 
-    /* responsive */
     @media (max-width: 850px) {
       .admin-container {
         flex-direction: column;
         height: auto;
-        border-radius: 1.5rem;
       }
       .sidebar {
         width: 100%;
         flex-direction: row;
         flex-wrap: wrap;
-        padding: 1rem 1.5rem;
-        gap: 1rem;
+        padding: 1rem;
       }
       .nav-menu {
         flex-direction: row;
@@ -345,34 +332,15 @@
         border-top: none;
         padding-top: 0;
       }
-      .stats-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-      .content-sections {
+      .grid-2col {
         grid-template-columns: 1fr;
       }
-    }
-
-    @media (max-width: 550px) {
-      .stats-grid {
-        grid-template-columns: 1fr;
-      }
-      .top-bar {
-        flex-direction: column;
-        align-items: start;
-        gap: 10px;
-      }
-    }
-
-    /* simple hover and active states — just for look (non functional but polished) */
-    .nav-item, .stat-card, .list-item {
-      cursor: default;
     }
   </style>
 </head>
 <body>
 <div class="admin-container">
-  <!-- SIDEBAR: exactly reflects the menu items from the image: Dashboard, Pages, Blog Posts, Projects, News Articles, Users, Settings, Logout -->
+  <!-- SIDEBAR with functional menu items -->
   <aside class="sidebar">
     <div>
       <div class="logo-area">
@@ -381,43 +349,43 @@
         </div>
         <div class="logo-text">PADECO</div>
       </div>
-      <nav class="nav-menu">
-        <div class="nav-item active">
+      <nav class="nav-menu" id="sidebar-nav">
+        <div class="nav-item" data-section="dashboard">
           <i class="fas fa-tachometer-alt"></i> <span>Dashboard</span>
         </div>
-        <div class="nav-item">
+        <div class="nav-item" data-section="pages">
           <i class="fas fa-file-alt"></i> <span>Pages</span>
         </div>
-        <div class="nav-item">
+        <div class="nav-item" data-section="blog">
           <i class="fas fa-blog"></i> <span>Blog Posts</span>
         </div>
-        <div class="nav-item">
+        <div class="nav-item" data-section="projects">
           <i class="fas fa-project-diagram"></i> <span>Projects</span>
         </div>
-        <div class="nav-item">
+        <div class="nav-item" data-section="news">
           <i class="fas fa-newspaper"></i> <span>News Articles</span>
         </div>
-        <div class="nav-item">
+        <div class="nav-item" data-section="users">
           <i class="fas fa-users"></i> <span>Users</span>
         </div>
-        <div class="nav-item">
+        <div class="nav-item" data-section="settings">
           <i class="fas fa-sliders-h"></i> <span>Settings</span>
         </div>
       </nav>
     </div>
     <div class="logout-item">
-      <div class="nav-item logout">
+      <div class="nav-item logout" id="logoutBtn">
         <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
       </div>
     </div>
   </aside>
 
-  <!-- MAIN DASHBOARD AREA -->
+  <!-- MAIN DYNAMIC CONTENT -->
   <main class="main-content">
     <div class="top-bar">
       <div class="page-title">
-        <h1>Dashboard</h1>
-        <p>Welcome back, Admin — oversee your content & activity</p>
+        <h1 id="dynamicTitle">Dashboard</h1>
+        <p id="dynamicSubtitle">Overview and key metrics</p>
       </div>
       <div class="admin-badge">
         <i class="fas fa-user-shield"></i> <span>PADECO · Super Admin</span>
@@ -425,172 +393,305 @@
       </div>
     </div>
 
-    <!-- Statistics cards to reflect active management -->
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-info">
-          <h3>24</h3>
-          <p>Total Pages</p>
-        </div>
-        <div class="stat-icon"><i class="fas fa-copy"></i></div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-info">
-          <h3>142</h3>
-          <p>Blog Posts</p>
-        </div>
-        <div class="stat-icon"><i class="fas fa-pen-fancy"></i></div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-info">
-          <h3>12</h3>
-          <p>Active Projects</p>
-        </div>
-        <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-info">
-          <h3>38</h3>
-          <p>News Articles</p>
-        </div>
-        <div class="stat-icon"><i class="fas fa-bullhorn"></i></div>
-      </div>
-    </div>
-
-    <!-- Content sections aligned with menu items: Pages, Blog Posts, Projects, News Articles previews -->
-    <div class="content-sections">
-      <!-- left column: Pages + Blog Posts -->
-      <div class="card-panel">
-        <div class="panel-header">
-          <h3><i class="fas fa-file-alt" style="margin-right: 8px;"></i> Recent Pages</h3>
-          <i class="fas fa-ellipsis-h"></i>
-        </div>
-        <div class="list-item">
-          <div class="item-info">
-            <div class="title">About Us – Company mission</div>
-            <div class="date">Last edited: 2 days ago</div>
-          </div>
-          <div class="badge-status">Published</div>
-        </div>
-        <div class="list-item">
-          <div class="item-info">
-            <div class="title">Services & Solutions</div>
-            <div class="date">Last edited: 5 days ago</div>
-          </div>
-          <div class="badge-status">Published</div>
-        </div>
-        <div class="list-item">
-          <div class="item-info">
-            <div class="title">Contact / Support Hub</div>
-            <div class="date">Last edited: 1 week ago</div>
-          </div>
-          <div class="badge-status badge-draft">Draft</div>
-        </div>
-        <div class="panel-header" style="border-top: 1px solid #edf2f7; border-bottom: none; margin-top: 4px;">
-          <h3><i class="fas fa-blog" style="margin-right: 8px;"></i> Recent Blog Posts</h3>
-          <i class="fas fa-plus-circle" style="color:#2c7da0;"></i>
-        </div>
-        <div class="list-item">
-          <div class="item-info">
-            <div class="title">2026 Digital Trends in Infrastructure</div>
-            <div class="date">March 12, 2026</div>
-          </div>
-          <span class="view-link"><i class="far fa-eye"></i> 1.2k</span>
-        </div>
-        <div class="list-item">
-          <div class="item-info">
-            <div class="title">PADECO expands renewable energy team</div>
-            <div class="date">March 5, 2026</div>
-          </div>
-          <span class="view-link"><i class="far fa-eye"></i> 843</span>
-        </div>
-        <div class="list-item">
-          <div class="item-info">
-            <div class="title">How to optimize admin workflows</div>
-            <div class="date">Feb 28, 2026</div>
-          </div>
-          <span class="view-link"><i class="far fa-eye"></i> 567</span>
-        </div>
-      </div>
-
-      <!-- right column: Projects + News Articles previews -->
-      <div class="card-panel">
-        <div class="panel-header">
-          <h3><i class="fas fa-project-diagram" style="margin-right: 8px;"></i> Active Projects</h3>
-          <i class="fas fa-chart-simple"></i>
-        </div>
-        <div class="list-item">
-          <div class="item-info">
-            <div class="title">Green Energy Initiative – Phase 2</div>
-            <div class="date">Progress: 68% · Due June 2026</div>
-          </div>
-          <div class="badge-status" style="background:#E9F0FF;">On Track</div>
-        </div>
-        <div class="list-item">
-          <div class="item-info">
-            <div class="title">Digital Transformation Platform</div>
-            <div class="date">Progress: 42% · Due Sept 2026</div>
-          </div>
-          <div class="badge-status">In Progress</div>
-        </div>
-        <div class="list-item">
-          <div class="item-info">
-            <div class="title">Community Outreach Program</div>
-            <div class="date">Progress: 90% · Due May 2026</div>
-          </div>
-          <div class="badge-status badge-draft">Review</div>
-        </div>
-        <div class="panel-header" style="border-top: 1px solid #edf2f7;">
-          <h3><i class="fas fa-newspaper" style="margin-right: 8px;"></i> Latest News Articles</h3>
-          <i class="fas fa-share-alt"></i>
-        </div>
-        <div class="list-item">
-          <div class="item-info">
-            <div class="title">PADECO announces new regional HQ</div>
-            <div class="date">March 10, 2026 · 4 min read</div>
-          </div>
-          <i class="fas fa-arrow-right" style="color:#8a99b4;"></i>
-        </div>
-        <div class="list-item">
-          <div class="item-info">
-            <div class="title">Award for excellence in green construction</div>
-            <div class="date">March 1, 2026 · 3 min read</div>
-          </div>
-          <i class="fas fa-arrow-right" style="color:#8a99b4;"></i>
-        </div>
-        <div class="list-item">
-          <div class="item-info">
-            <div class="title">New sustainability guidelines released</div>
-            <div class="date">Feb 20, 2026 · 5 min read</div>
-          </div>
-          <i class="fas fa-arrow-right" style="color:#8a99b4;"></i>
-        </div>
-      </div>
-    </div>
-
-    <!-- extra quick users summary (related to Users menu) -->
-    <div style="padding: 0 2rem 0.5rem 2rem;">
-      <div class="card-panel" style="margin-bottom: 0rem;">
-        <div class="panel-header">
-          <h3><i class="fas fa-users" style="margin-right: 0.6rem;"></i> User Access Summary</h3>
-          <span style="font-size: 0.7rem; background:#F1F5F9; padding: 0.2rem 0.7rem; border-radius: 50px;">Total: 8 active</span>
-        </div>
-        <div style="display: flex; flex-wrap: wrap; gap: 1rem; padding: 0.8rem 1.5rem 1.2rem 1.5rem;">
-          <div><i class="fas fa-user-check"></i> 4 Admins</div>
-          <div><i class="fas fa-user-edit"></i> 12 Editors</div>
-          <div><i class="fas fa-user"></i> 23 Subscribers</div>
-          <div><i class="fas fa-user-plus"></i> 2 Pending invites</div>
-        </div>
-        <div class="list-item" style="border-top: 1px solid #edf2f7; justify-content: flex-start; gap: 12px;">
-          <i class="fas fa-cog" style="color:#5f7f9e;"></i> <span style="font-size:0.8rem;">Manage roles & permissions via Settings</span>
-        </div>
-      </div>
+    <div id="contentContainer" class="dynamic-view">
+      <!-- Dynamic content gets injected here via JS -->
     </div>
 
     <div class="copyright-footer">
-      <i class="far fa-copyright"></i> 2026 PADECO Admin Dashboard — All sections reflect Pages, Blog Posts, Projects, News, Users, Settings and Logout.
+      <i class="far fa-copyright"></i> 2026 PADECO Admin Dashboard — Fully functional sections: Pages, Blog, Projects, News, Users, Settings & Logout.
     </div>
   </main>
 </div>
+
+<script>
+  // ---------- DATA MODELS (simulated backend) ----------
+  let pagesData = [
+    { id: 1, title: "About Us – Company mission", status: "Published", lastEdited: "2 days ago" },
+    { id: 2, title: "Services & Solutions", status: "Published", lastEdited: "5 days ago" },
+    { id: 3, title: "Contact / Support Hub", status: "Draft", lastEdited: "1 week ago" },
+    { id: 4, title: "Career Opportunities", status: "Published", lastEdited: "3 days ago" }
+  ];
+
+  let blogPosts = [
+    { id: 1, title: "2026 Digital Trends in Infrastructure", views: "1.2k", date: "March 12, 2026" },
+    { id: 2, title: "PADECO expands renewable energy team", views: "843", date: "March 5, 2026" },
+    { id: 3, title: "How to optimize admin workflows", views: "567", date: "Feb 28, 2026" },
+    { id: 4, title: "AI in Construction: Future ready", views: "2.1k", date: "March 1, 2026" }
+  ];
+
+  let projects = [
+    { id: 1, name: "Green Energy Initiative – Phase 2", progress: "68%", due: "June 2026", status: "On Track" },
+    { id: 2, name: "Digital Transformation Platform", progress: "42%", due: "Sept 2026", status: "In Progress" },
+    { id: 3, name: "Community Outreach Program", progress: "90%", due: "May 2026", status: "Review" },
+    { id: 4, name: "Smart Infrastructure Lab", progress: "25%", due: "Dec 2026", status: "Planning" }
+  ];
+
+  let newsArticles = [
+    { id: 1, title: "PADECO announces new regional HQ", date: "March 10, 2026", readTime: "4 min read" },
+    { id: 2, title: "Award for excellence in green construction", date: "March 1, 2026", readTime: "3 min read" },
+    { id: 3, title: "New sustainability guidelines released", date: "Feb 20, 2026", readTime: "5 min read" },
+    { id: 4, title: "Partnership with leading tech firms", date: "March 15, 2026", readTime: "2 min read" }
+  ];
+
+  let users = [
+    { id: 1, name: "Alice Montgomery", role: "Admin", email: "alice@padeco.com", status: "Active" },
+    { id: 2, name: "James Chen", role: "Editor", email: "james.chen@padeco.com", status: "Active" },
+    { id: 3, name: "Sophia Laurent", role: "Editor", email: "sophia.l@padeco.com", status: "Active" },
+    { id: 4, name: "Marcus Velez", role: "Subscriber", email: "marcus.v@padeco.com", status: "Pending" },
+    { id: 5, name: "Elena Rossi", role: "Admin", email: "elena.rossi@padeco.com", status: "Active" },
+  ];
+
+  // Helper: re-render active section
+  let currentSection = "dashboard";
+
+  function setActiveNav(sectionId) {
+    document.querySelectorAll('.nav-item[data-section]').forEach(item => {
+      if (item.getAttribute('data-section') === sectionId) {
+        item.classList.add('active');
+      } else {
+        item.classList.remove('active');
+      }
+    });
+  }
+
+  function renderDashboard() {
+    const totalPages = pagesData.length;
+    const totalBlogs = blogPosts.length;
+    const totalProjects = projects.length;
+    const totalNews = newsArticles.length;
+    const recentPages = pagesData.slice(0, 3);
+    const recentPosts = blogPosts.slice(0, 3);
+    
+    return `
+      <div class="grid-2col" style="margin-bottom: 1.5rem;">
+        <div class="stat-card"><div class="stat-info"><h3>${totalPages}</h3><p>Total Pages</p></div><div class="stat-icon"><i class="fas fa-copy"></i></div></div>
+        <div class="stat-card"><div class="stat-info"><h3>${totalBlogs}</h3><p>Blog Posts</p></div><div class="stat-icon"><i class="fas fa-pen-fancy"></i></div></div>
+        <div class="stat-card"><div class="stat-info"><h3>${totalProjects}</h3><p>Active Projects</p></div><div class="stat-icon"><i class="fas fa-chart-line"></i></div></div>
+        <div class="stat-card"><div class="stat-info"><h3>${totalNews}</h3><p>News Articles</p></div><div class="stat-icon"><i class="fas fa-bullhorn"></i></div></div>
+      </div>
+      <div class="grid-2col">
+        <div class="card-panel">
+          <div class="panel-header"><h3><i class="fas fa-file-alt"></i> Recent Pages</h3><button class="btn-sm" id="viewAllPagesBtn">View All</button></div>
+          ${recentPages.map(page => `<div class="list-item"><div class="item-info"><div class="title">${escapeHtml(page.title)}</div><div class="date">Last edited: ${page.lastEdited}</div></div><div class="badge-status">${page.status}</div></div>`).join('')}
+        </div>
+        <div class="card-panel">
+          <div class="panel-header"><h3><i class="fas fa-blog"></i> Recent Blog Posts</h3><button class="btn-sm" id="viewAllBlogBtn">View All</button></div>
+          ${recentPosts.map(post => `<div class="list-item"><div class="item-info"><div class="title">${escapeHtml(post.title)}</div><div class="date">${post.date}</div></div><span class="badge-status"><i class="far fa-eye"></i> ${post.views}</span></div>`).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  function renderPages() {
+    return `
+      <div class="card-panel">
+        <div class="panel-header"><h3><i class="fas fa-copy"></i> All Pages</h3><button class="btn-sm" id="addPageBtn"><i class="fas fa-plus"></i> Add Page</button></div>
+        ${pagesData.map(page => `
+          <div class="list-item">
+            <div class="item-info"><div class="title">${escapeHtml(page.title)}</div><div class="date">Last edit: ${page.lastEdited}</div></div>
+            <div><span class="badge-status">${page.status}</span> <button class="btn-sm edit-page" data-id="${page.id}" style="margin-left: 8px;">Edit</button></div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  function renderBlog() {
+    return `
+      <div class="card-panel">
+        <div class="panel-header"><h3><i class="fas fa-blog"></i> Blog Posts Management</h3><button class="btn-sm" id="newPostBtn"><i class="fas fa-plus"></i> New Post</button></div>
+        ${blogPosts.map(post => `
+          <div class="list-item">
+            <div><div class="title">${escapeHtml(post.title)}</div><div class="date">${post.date} · ${post.views} views</div></div>
+            <button class="btn-sm edit-blog" data-id="${post.id}">Edit</button>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  function renderProjects() {
+    return `
+      <div class="card-panel">
+        <div class="panel-header"><h3><i class="fas fa-project-diagram"></i> Project Portfolio</h3><button class="btn-sm" id="addProjectBtn"><i class="fas fa-plus"></i> Add Project</button></div>
+        ${projects.map(proj => `
+          <div class="list-item">
+            <div><div class="title">${escapeHtml(proj.name)}</div><div class="date">Progress ${proj.progress} · Due ${proj.due}</div></div>
+            <div><span class="badge-status">${proj.status}</span> <button class="btn-sm edit-project" data-id="${proj.id}">Edit</button></div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  function renderNews() {
+    return `
+      <div class="card-panel">
+        <div class="panel-header"><h3><i class="fas fa-newspaper"></i> News Articles</h3><button class="btn-sm" id="addNewsBtn"><i class="fas fa-plus"></i> Add Article</button></div>
+        ${newsArticles.map(art => `
+          <div class="list-item">
+            <div><div class="title">${escapeHtml(art.title)}</div><div class="date">${art.date} · ${art.readTime}</div></div>
+            <button class="btn-sm edit-news" data-id="${art.id}">Edit</button>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  function renderUsers() {
+    return `
+      <div class="card-panel">
+        <div class="panel-header"><h3><i class="fas fa-users"></i> System Users</h3><button class="btn-sm" id="inviteUserBtn"><i class="fas fa-user-plus"></i> Invite User</button></div>
+        <div class="list-item" style="background:#f9fbfe; font-weight:600;"><span>Name / Email</span><span>Role & Status</span></div>
+        ${users.map(user => `
+          <div class="list-item">
+            <div><div class="title">${escapeHtml(user.name)}</div><div class="date">${user.email}</div></div>
+            <div><span class="badge-status" style="background:${user.status === 'Active' ? '#e9f4ea' : '#fff0db'}">${user.role} · ${user.status}</span> <button class="btn-sm edit-user" data-id="${user.id}">Edit</button></div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  function renderSettings() {
+    return `
+      <div class="card-panel">
+        <div class="panel-header"><h3><i class="fas fa-sliders-h"></i> General Settings</h3></div>
+        <div class="list-item"><span>Site Name</span><span><strong>PADECO Admin Portal</strong> <button class="btn-sm" id="changeSiteNameBtn">Change</button></span></div>
+        <div class="list-item"><span>Default Language</span><span>English (US) <button class="btn-sm">Edit</button></span></div>
+        <div class="list-item"><span>Notifications</span><span><i class="fas fa-toggle-on" style="color:#2c7da0;"></i> Email alerts enabled</span></div>
+        <div class="list-item"><span>API Access</span><span><i class="fas fa-key"></i> Manage tokens <button class="btn-sm">Configure</button></span></div>
+        <div class="list-item"><span>Theme Preference</span><span>Light mode <button class="btn-sm">Switch</button></span></div>
+      </div>
+      <div class="card-panel">
+        <div class="panel-header"><h3><i class="fas fa-database"></i> System & Backups</h3></div>
+        <div class="list-item"><span>Last backup: Today at 03:00 AM</span><button class="btn-sm">Run Backup</button></div>
+        <div class="list-item"><span>Clear cache</span><button class="btn-sm" id="clearCacheBtn">Clear</button></div>
+      </div>
+    `;
+  }
+
+  function escapeHtml(str) {
+    return str.replace(/[&<>]/g, function(m) {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      return m;
+    }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
+      return c;
+    });
+  }
+
+  function updateContent() {
+    const container = document.getElementById('contentContainer');
+    const titleElem = document.getElementById('dynamicTitle');
+    const subtitleElem = document.getElementById('dynamicSubtitle');
+    let html = '';
+
+    switch(currentSection) {
+      case 'dashboard':
+        html = renderDashboard();
+        titleElem.innerText = 'Dashboard';
+        subtitleElem.innerText = 'Key metrics and recent activity';
+        break;
+      case 'pages':
+        html = renderPages();
+        titleElem.innerText = 'Pages';
+        subtitleElem.innerText = 'Manage your website pages';
+        break;
+      case 'blog':
+        html = renderBlog();
+        titleElem.innerText = 'Blog Posts';
+        subtitleElem.innerText = 'Create and edit blog content';
+        break;
+      case 'projects':
+        html = renderProjects();
+        titleElem.innerText = 'Projects';
+        subtitleElem.innerText = 'Track ongoing initiatives';
+        break;
+      case 'news':
+        html = renderNews();
+        titleElem.innerText = 'News Articles';
+        subtitleElem.innerText = 'Press releases and updates';
+        break;
+      case 'users':
+        html = renderUsers();
+        titleElem.innerText = 'Users';
+        subtitleElem.innerText = 'Manage team members and roles';
+        break;
+      case 'settings':
+        html = renderSettings();
+        titleElem.innerText = 'Settings';
+        subtitleElem.innerText = 'Configure system preferences';
+        break;
+      default: html = renderDashboard();
+    }
+    container.innerHTML = html;
+    attachSectionEventListeners();
+  }
+
+  function attachSectionEventListeners() {
+    // internal buttons for demo interactions (simulate functional actions)
+    if (currentSection === 'dashboard') {
+      const viewAllPages = document.getElementById('viewAllPagesBtn');
+      const viewAllBlog = document.getElementById('viewAllBlogBtn');
+      if (viewAllPages) viewAllPages.addEventListener('click', () => { navigateTo('pages'); });
+      if (viewAllBlog) viewAllBlog.addEventListener('click', () => { navigateTo('blog'); });
+    }
+    if (currentSection === 'pages') {
+      const addBtn = document.getElementById('addPageBtn');
+      if (addBtn) addBtn.addEventListener('click', () => alert("✨ Add new page form (simulated). In a real app, modal would open."));
+      document.querySelectorAll('.edit-page').forEach(btn => btn.addEventListener('click', (e) => { alert(`✏️ Edit page ID: ${btn.dataset.id}`); }));
+    }
+    if (currentSection === 'blog') {
+      document.getElementById('newPostBtn')?.addEventListener('click', () => alert("📝 Create new blog post (demo)."));
+      document.querySelectorAll('.edit-blog').forEach(btn => btn.addEventListener('click', () => alert(`✏️ Edit blog post #${btn.dataset.id}`)));
+    }
+    if (currentSection === 'projects') {
+      document.getElementById('addProjectBtn')?.addEventListener('click', () => alert("➕ Add new project (demo)."));
+      document.querySelectorAll('.edit-project').forEach(btn => btn.addEventListener('click', () => alert(`📌 Edit project #${btn.dataset.id}`)));
+    }
+    if (currentSection === 'news') {
+      document.getElementById('addNewsBtn')?.addEventListener('click', () => alert("📰 Add news article (demo)."));
+      document.querySelectorAll('.edit-news').forEach(btn => btn.addEventListener('click', () => alert(`📖 Edit article #${btn.dataset.id}`)));
+    }
+    if (currentSection === 'users') {
+      document.getElementById('inviteUserBtn')?.addEventListener('click', () => alert("📧 Invite user dialog (simulated)."));
+      document.querySelectorAll('.edit-user').forEach(btn => btn.addEventListener('click', () => alert(`👤 Edit user permissions: ${btn.dataset.id}`)));
+    }
+    if (currentSection === 'settings') {
+      document.getElementById('changeSiteNameBtn')?.addEventListener('click', () => alert("⚙️ Site name setting (demo)."));
+      document.getElementById('clearCacheBtn')?.addEventListener('click', () => alert("🧹 Cache cleared (simulated)."));
+    }
+  }
+
+  function navigateTo(section) {
+    currentSection = section;
+    setActiveNav(section);
+    updateContent();
+  }
+
+  // logout functionality (simple alert + confirm)
+  function handleLogout() {
+    if (confirm("Are you sure you want to logout from PADECO Admin?")) {
+      alert("You have been logged out. (Demo redirect)");
+      // optional: redirect or reset to dashboard but keep functional demo
+      navigateTo('dashboard');
+    }
+  }
+
+  // attach global nav clicks
+  document.querySelectorAll('.nav-item[data-section]').forEach(item => {
+    item.addEventListener('click', (e) => {
+      const section = item.getAttribute('data-section');
+      navigateTo(section);
+    });
+  });
+  document.getElementById('logoutBtn').addEventListener('click', handleLogout);
+
+  // initial render
+  setActiveNav('dashboard');
+  updateContent();
+</script>
 </body>
 </html>
